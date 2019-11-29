@@ -18,8 +18,15 @@
 }
 
 .board {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border: 2px solid #e6f7ff;
+  -webkit-box-shadow: 4px -4px 31px 10px rgba(230, 247, 255, 1);
+  -moz-box-shadow: 4px -4px 31px 10px rgba(230, 247, 255, 1);
+  box-shadow: 4px -4px 31px 10px rgba(230, 247, 255, 1);
+}
+
+.replyPost {
+  margin-bottom: 10px;
   -webkit-box-shadow: 4px -4px 31px 10px rgba(230, 247, 255, 1);
   -moz-box-shadow: 4px -4px 31px 10px rgba(230, 247, 255, 1);
   box-shadow: 4px -4px 31px 10px rgba(230, 247, 255, 1);

@@ -1,5 +1,5 @@
 import { takeEvery, select, call, put, all } from 'redux-saga/effects';
-import { THREAD } from '../constants';
+import { THREAD, BOARD } from '../constants';
 import {
   setThread,
   setThreads,
@@ -8,8 +8,9 @@ import {
   setNotificationIP,
   setNotificationR,
   setNotificationD,
+  setAll,
 } from '../actions';
-import { post, put as PUT, get, DELETE } from '../api/Thread';
+import { post, put as PUT, get, DELETE, getAll } from '../api/Thread';
 
 function* handleThreadPost({ payload: form }) {
   try {
@@ -62,11 +63,21 @@ function* handleThreadDelete({ payload: form, history }) {
   }
 }
 
+function* handleBoardGetAll() {
+  try {
+    const boards = yield call(getAll);
+    yield put(setAll(boards));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* watchUpdatePost() {
   yield all([
     takeEvery(THREAD.POST, handleThreadPost),
     takeEvery(THREAD.PUT, handleThreadPut),
     takeEvery(THREAD.GET, handleThreadGet),
     takeEvery(THREAD.DELETE, handleThreadDelete),
+    takeEvery(BOARD.GET, handleBoardGetAll),
   ]);
 }

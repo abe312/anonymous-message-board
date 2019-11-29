@@ -1,0 +1,23 @@
+.boards {
+  margin: 10px;
+  display: inline-block;
+  width: 30%;
+}
+
+@media screen and (max-width: 800px) {
+  .boards {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .boards {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .boards {
+    width: 22%;
+  }
+}

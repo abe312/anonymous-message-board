@@ -58,4 +58,13 @@ const DELETE = async form => {
   return data;
 };
 
-export { post, put, get, DELETE };
+const getAll = async () => {
+  const res = await axios.get('/api/boards');
+  let { data } = res;
+  if (res.status >= 400) {
+    throw new Error(res);
+  }
+  return data;
+};
+
+export { post, put, get, DELETE, getAll };

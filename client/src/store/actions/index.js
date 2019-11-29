@@ -1,4 +1,4 @@
-import { THREAD, REPLY, CLEAR_ERROR, NOTIFICATION } from '../constants';
+import { THREAD, REPLY, CLEAR_ERROR, NOTIFICATION, BOARD } from '../constants';
 
 const postThread = form => ({
   type: THREAD.POST,
@@ -75,6 +75,15 @@ const setNotificationD = data => ({
   payload: data + ' delete',
 });
 
+const getAll = () => ({
+  type: BOARD.GET,
+});
+
+const setAll = data => ({
+  type: BOARD.SET,
+  payload: data,
+});
+
 export {
   postThread,
   putThread,
@@ -92,4 +101,6 @@ export {
   setNotificationR,
   setNotificationD,
   postReply,
+  getAll,
+  setAll,
 };

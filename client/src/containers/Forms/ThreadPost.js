@@ -4,7 +4,7 @@ import { Form, Icon, Input, Button } from 'antd';
 // import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'react-redux';
-import { postThread } from '../../store/actions';
+import { postThread, getThread } from '../../store/actions';
 
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -44,6 +44,7 @@ class ThreadPost extends Component {
         form.delete_password = password;
         console.log(form);
         this.props.postThread(form);
+        this.props.getThread({ board });
         this.props.history.push(`/b/${board}`);
       }
     });
@@ -167,6 +168,7 @@ class ThreadPost extends Component {
 const mapStateToProps = null;
 const mapDispatchToProps = dispatch => ({
   postThread: form => dispatch(postThread(form)),
+  getThread: form => dispatch(getThread(form)), // bug that Board doesn't run componentDidMount when called from here
 });
 export default connect(
   mapStateToProps,

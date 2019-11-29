@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import 'antd/dist/antd.css';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Foot from './components/Footer';
 import Head from './components/Header';
@@ -10,6 +10,7 @@ import Notification from './containers/Notification';
 import NotFound from './components/NotFound';
 import Instructions from './containers/Instructions';
 import Board from './containers/Board';
+import Boards from './containers/Boards';
 import Thread from './containers/Thread';
 
 import { Provider } from 'react-redux';
@@ -28,21 +29,23 @@ function App() {
           <Head />
           <Content style={{ padding: '0 50px' }}>
             <div className='content'>
-              <Route exact path='/'>
-                <Instructions />
-              </Route>
-              <Route exact path='/b/:board'>
-                <Board />
-              </Route>
-              <Route exact path='/b/:board/:thread_id'>
-                <Thread />
-              </Route>
-              <Route exact path='/boards'>
-                <div>threads</div>
-              </Route>
-              <Route exact path='/not-found'>
-                <NotFound />
-              </Route>
+              <Switch>
+                <Route exact path='/'>
+                  <Instructions />
+                </Route>
+                <Route exact path='/b/:board'>
+                  <Board />
+                </Route>
+                <Route exact path='/b/:board/:thread_id'>
+                  <Thread />
+                </Route>
+                <Route exact path='/boards'>
+                  <Boards />
+                </Route>
+                <Route exact path='/not-found'>
+                  <NotFound />
+                </Route>
+              </Switch>
             </div>
           </Content>
           <Foot />

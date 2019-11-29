@@ -1,9 +1,10 @@
-import { THREAD, REPLY } from '../constants/';
+import { THREAD, REPLY, BOARD } from '../constants/';
 
 const initialState = {
   threads: [],
   loading: false,
   thread: {},
+  boards: [],
 };
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -38,6 +39,10 @@ export default function(state = initialState, action) {
         loading: false,
         thread: action.payload,
       };
+    }
+
+    case BOARD.SET: {
+      return { ...state, loading: false, boards: action.payload };
     }
     default:
       return state;

@@ -1,0 +1,20 @@
+.reply {
+  border-bottom: 1.5px solid#e6f7ff;
+  margin: 10px;
+  margin-bottom: 0;
+  border-radius: 5px;
+}
+
+.small {
+  font-size: 0.8rem;
+}
+
+.cards {
+  margin-bottom: 20px;
+}
+
+.cards .ant-card:hover {
+  -webkit-box-shadow: inset 8px -4px 31px 20px rgba(230, 247, 255, 1);
+  -moz-box-shadow: inset 8px -4px 31px 20px rgba(230, 247, 255, 1);
+  box-shadow: inset 8px -4px 31px 20px rgba(230, 247, 255, 1);
+}

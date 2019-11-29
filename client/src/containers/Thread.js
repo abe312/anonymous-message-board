@@ -73,9 +73,12 @@ class Thread extends Component {
             </div>
           </Card>
         </div>
-        <Card title={'Reply to Thread'}>
-          <PostReply board={board} thread_id={id} />
-        </Card>
+        <div className='replyPost'>
+          <Card title={'Reply to Thread'}>
+            <PostReply board={board} thread_id={id} />
+          </Card>
+        </div>
+        <br />
       </>
     );
     let r =
