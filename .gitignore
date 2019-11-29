@@ -1,4 +1,5 @@
 /node_modules
+/client/node_modules
 yarn.lock
 .env
 
@@ -9,7 +10,7 @@ yarn.lock
 /coverage
 
 # production
-
+# do NOT put /build here or heroku doesn't work
 
 # misc
 .DS_Store
