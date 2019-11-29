@@ -43,11 +43,14 @@ const get = async form => {
   return data;
 };
 
-const remove = async form => {
+const DELETE = async form => {
   let { board } = form;
   board = board.split(' ')[0];
+  console.log(form);
   delete form.board;
-  const response = await axios.remove(`/api/threads/${board}`, form);
+  const response = await axios.delete(`/api/threads/${board}`, {
+    data: form,
+  });
   let { data } = response;
   if (response.status >= 400) {
     throw new Error(response);
@@ -55,4 +58,4 @@ const remove = async form => {
   return data;
 };
 
-export { post, put, get, remove };
+export { post, put, get, DELETE };

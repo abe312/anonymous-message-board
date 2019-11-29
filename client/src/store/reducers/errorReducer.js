@@ -1,12 +1,11 @@
-const ERROR = 'ERROR';
-const CLEAR_ERROR = 'CLEAR_ERROR';
+import { THREAD, REPLY, CLEAR_ERROR } from '../constants/';
 
 export default function(state = null, action) {
   switch (action.type) {
-    case ERROR:
+    case THREAD.LOAD_FAIL:
       return action.payload;
     case CLEAR_ERROR:
-      return state;
+      return null;
     default:
       return state;
   }

@@ -1,13 +1,13 @@
 import errorReducer from './errorReducer';
 import threadReducer from './threadReducer';
-import replyReducer from './replyReducer';
+import notificationReducer from './notificationReducer';
 
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   errors: errorReducer,
   thread: threadReducer,
-  reply: replyReducer,
+  notification: notificationReducer,
 });
 
 export default rootReducer;

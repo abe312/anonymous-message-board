@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Tag, Form, Input, Button, Typography } from 'antd';
+import { Table, Tag, Typography } from 'antd';
 
 import ThreadPost from './Forms/ThreadPost';
 
@@ -62,7 +62,12 @@ class Instructions extends Component {
         <br />
         <Title> Anonymous Message Board </Title>
         <br />
-        <Table columns={columns} dataSource={data} pagination={false} />
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+          style={{ border: '1px solid #e6f7ff' }}
+        />
         <br />
         <h2>Try it yourself!</h2>
         <h3>Add new Thread (POST /api/threads/:board) </h3>

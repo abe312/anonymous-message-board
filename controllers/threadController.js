@@ -4,53 +4,57 @@ const Thread = mongoose.model('thread');
 const bcrypt = require('bcrypt');
 
 exports.getAll = async (req, res) => {
-  let threads = await Thread.find({})
-    .sort('-created_on')
-    .limit(20);
-  threads = threads.map(thread => {
-    thread.replies = thread.replies.filter(reply => reply.text != '[DELETED]');
-    thread.replies = thread.replies.sort(function(a, b) {
-      let c = new Date(a.created_on);
-      let d = new Date(b.created_on);
-      return d - c;
-    });
-    thread.count_replies = thread.replies.length;
-    thread.replies.splice(3);
-    return thread;
-  });
+  let threads = await Thread.find({}).sort('-created_on board');
 
-  res.json(threads);
+  const boards = [...new Set(threads.map(thread => thread.board))];
+  // todos: total threads in each board
+
+  res.json(boards);
 };
 
 exports.getThread = async (req, res) => {
   const board = req.params.board;
 
   const { thread_id } = req.query;
-  console.log(thread_id);
+  // console.log(thread_id);
   if (thread_id) {
+    // console.log('here');
+    let thread = await Thread.findById(thread_id).lean();
+    delete thread.password;
+    delete thread.__v;
+    thread.replies.map(reply => delete reply.password);
+
     console.log('here');
-    const thread = await Thread.findById(thread_id);
     res.json(thread);
   } else {
     let threads = await Thread.find({ board })
       .sort('-created_on')
       .limit(10);
 
-    threads = threads.map(thread => {
-      thread.replies = thread.replies.filter(
-        reply => reply.text != '[DELETED]'
-      );
+    // root of all errors :|
+    threads = threads.map(thread => thread.toObject());
 
-      thread.replies = thread.replies.sort(function(a, b) {
-        let c = new Date(a.created_on);
-        let d = new Date(b.created_on);
-        return d - c;
-      });
+    threads.map(thread => {
+      delete thread.password;
+      delete thread.__v;
       thread.count_replies = thread.replies.length;
-      thread.replies.splice(3);
-      return thread;
-    });
 
+      thread.replies = thread.replies.filter(
+        reply => reply.text !== '[deleted]'
+      );
+      if (thread.replies.length > 0) {
+        thread.replies.map(reply => delete reply.password);
+        thread.hidden_replies = thread.count_replies - thread.replies.length;
+
+        thread.replies = thread.replies.sort(function(a, b) {
+          let c = new Date(a.created_on);
+          let d = new Date(b.created_on);
+          return d - c;
+        });
+        // thread.count_replies = thread.replies.length;
+        thread.replies.splice(3);
+      }
+    });
     res.json(threads);
   }
 };
@@ -80,7 +84,8 @@ exports.postThread = async (req, res) => {
 exports.putThread = async (req, res) => {
   const board = req.params.board;
   const { thread_id } = req.body;
-  // console.log(board, thread_id);
+
+  console.log(board, thread_id);
   const thread = await Thread.findOneAndUpdate(
     { board, _id: thread_id },
     {
@@ -98,6 +103,7 @@ exports.deleteThread = async (req, res) => {
   const board = req.params.board;
 
   const { thread_id, delete_password } = req.body;
+  console.log(req.body, req.params.board, req.query);
   const thread = await Thread.findOne({ board, _id: thread_id });
   if (thread) {
     // console.log('here');
@@ -106,7 +112,7 @@ exports.deleteThread = async (req, res) => {
     bcrypt.compare(delete_password, thread.password, async (err, isMatch) => {
       if (isMatch) {
         await Thread.deleteOne({ board, _id: thread_id });
-        return res.send('delete successfull');
+        return res.send('success');
       } else {
         return res.send('password incorrect');
       }

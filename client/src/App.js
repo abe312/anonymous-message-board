@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Foot from './components/Footer';
 import Head from './components/Header';
+import Notification from './containers/Notification';
+import NotFound from './components/NotFound';
 import Instructions from './containers/Instructions';
 import Board from './containers/Board';
 import Thread from './containers/Thread';
@@ -21,7 +23,8 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Layout>
+        <Notification />
+        <Layout style={{ background: 'transparent' }}>
           <Head />
           <Content style={{ padding: '0 50px' }}>
             <div className='content'>
@@ -36,6 +39,9 @@ function App() {
               </Route>
               <Route exact path='/boards'>
                 <div>threads</div>
+              </Route>
+              <Route exact path='/not-found'>
+                <NotFound />
               </Route>
             </div>
           </Content>

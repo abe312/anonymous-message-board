@@ -83,7 +83,7 @@ exports.deleteReplies = async (req, res) => {
             { new: true }
           );
           // console.log(thread)
-          res.json(thread);
+          res.json('success');
         } else {
           return res.send('password incorrect');
         }

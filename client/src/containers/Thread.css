@@ -1,8 +1,26 @@
 .report__board,
-.delete__board {
+.delete__board,
+.report__reply,
+.delete__reply {
   display: inline-block;
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 20px;
   margin-bottom: 0;
+}
+
+.delete__reply,
+.delete__board {
+  border: 1px solid #e6f7ff;
+  padding-left: 5px;
+  padding-right: 0;
+  border-radius: 5px;
+}
+
+.board {
+  margin-bottom: 30px;
+  border: 2px solid #e6f7ff;
+  -webkit-box-shadow: 4px -4px 31px 10px rgba(230, 247, 255, 1);
+  -moz-box-shadow: 4px -4px 31px 10px rgba(230, 247, 255, 1);
+  box-shadow: 4px -4px 31px 10px rgba(230, 247, 255, 1);
 }
