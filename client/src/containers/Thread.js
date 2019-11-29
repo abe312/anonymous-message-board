@@ -80,7 +80,7 @@ class Thread extends Component {
     );
     let r =
       replies &&
-      replies.reverse().map(reply => (
+      replies.map(reply => (
         <div style={{ marginTop: 10 }} key={reply._id}>
           <Card
             title={`Reply Id: ${reply._id}`}

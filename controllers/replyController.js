@@ -26,7 +26,17 @@ exports.postReplies = async (req, res) => {
           { board, _id: thread_id },
           {
             $push: {
-              replies: { text, password, created_on: Date.now(), report: 0 },
+              replies: {
+                $each: [
+                  {
+                    text,
+                    password,
+                    created_on: Date.now(),
+                    report: 0,
+                  },
+                ],
+                $position: 0,
+              },
             },
           },
           { new: true }
