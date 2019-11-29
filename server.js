@@ -27,6 +27,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({ origin: '*' })); //For FCC testing purposes only
 
+const path = require('path');
+// Server static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 var apiRoutes = require('./routes/api.js');
 var fccTestingRoutes = require('./routes/fcctesting.js');
 var runner = require('./test-runner');
@@ -59,16 +69,6 @@ app.use(function(req, res, next) {
     .type('text')
     .send('Not Found');
 });
-
-const path = require('path');
-// Server static assets if in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
 
 //Start our server and tests!
 app.listen(process.env.PORT || 5000, function() {
